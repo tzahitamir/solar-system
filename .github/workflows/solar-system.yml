@@ -23,5 +23,11 @@ jobs:
         - name: install dependencies
           run: npm install
         - name: Run unit-test
-          run: echo "npm test"   
+          run: echo "npm test"   > test_result.txt
+        - name: Upload 2.txt file
+          uses: actions/upload-artifact@v3
+          with:
+            name: test_result.txt upload
+            path: test_result.txt
+  
 
