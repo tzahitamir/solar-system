@@ -6,7 +6,10 @@ on:
     branches:
       - main
       - 'feature/*'
-
+env:
+    MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superDate'
+    MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
+    MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
 jobs:    
     unit-testing:
         runs-on: ubuntu-latest
