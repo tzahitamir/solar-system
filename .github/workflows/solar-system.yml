@@ -20,7 +20,7 @@ jobs:
           uses: actions/setup-node@v3
           with:
             node-version: 18
-            
+
         #cache in order t avoid build of node_modules each time that the workflow is running     
         - name: cache dependencies
           uses: actions/cache@v3
@@ -32,7 +32,7 @@ jobs:
           run: npm install
         - name: echo something
           id: echo-test
-          run: run echo "ABC"  
+          run: echo "ABC"  
 
         #check the outcome of the a step, according to its id
         #by default github only have the success() result, you have to explecity call the failure() function to get the result 
