@@ -20,11 +20,36 @@ jobs:
           uses: actions/setup-node@v3
           with:
             node-version: 18
+            
+        #cache in order t avoid build of node_modules each time that the workflow is running     
+        - name: cache dependencies
+          uses: actions/cache@v3
+          with:
+            path: node_modules #The name of file or folder to cache
+            key: ${{ runner.os }}-node-modules-${{hashfiles( 'package-json.lock') }} #key for cache descision is wether package-json.lock had changed for each os ver
+
         - name: install dependencies
           run: npm install
+        - name: echo something
+          id: echo-test
+          run: run echo "ABC"  
+
+        #check the outcome of the a step, according to its id
+        #by default github only have the success() result, you have to explecity call the failure() function to get the result 
+        # in the next if condition, you can use only if: failure() instead of the whole expression
+        # this can be used to upload test results file, after a test step is falling for example
+
         - name: Run unit-test
+           #this will run the step only on failure 
+         # if: failure() && (steps.echo-test.outcome == 'failure' || steps.echo-test.outcome == 'success')
+
+         # always run the step, regardless if there was a failure in the previous step 
+          if: always()
+        
+          #continue-on-error by default is false, which means that if a step will fail, the whole workflow will fail
+          #continue-on-error: true
           run: echo "npm test"   > test_result.txt
-        - name: Upload 2.txt file
+        - name: Upload test_result.txt
           uses: actions/upload-artifact@v3
           with:
             name: test_result.txt upload
