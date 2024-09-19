@@ -54,5 +54,18 @@ jobs:
           with:
             name: test_result.txt upload
             path: test_result.txt
-  
+    docker:
+          name: conternatiozation
+          needs: [unit-testing]
+          runs-on: ubuntu-latest 
+          steps:
+          - name: checkout
+            uses: actions/checkout@v4       
+          - name: Docker login
+            uses: docker/login-action@v2.2.0
+            #can also use be used for ecr login
+            with:
+                username: ${{ vars.docker_user }}
+                password: ${{ secrets.docker_pass}}   
+
 
