@@ -89,7 +89,7 @@ jobs:
               echo "Testing docker with wget"
 
               wget -q -O - 127.0.0.1:3000/live | grep live 
-          - name: docker build for testing
+          - name: docker build and push
             uses: docker/build-push-action@v4
             with:
               context: .
