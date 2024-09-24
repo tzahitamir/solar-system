@@ -59,6 +59,9 @@ jobs:
           name: conternatiozation
           needs: [unit-testing]
           runs-on: ubuntu-latest 
+          #Add write permission to GITHUB_TOKEN , such that it will be able to push new container to GHCR
+          permissions:
+            packages: write
           steps:
           - name: checkout
             uses: actions/checkout@v4       
