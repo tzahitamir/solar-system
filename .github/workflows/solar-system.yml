@@ -68,10 +68,11 @@ jobs:
             with:
                 username: ${{ vars.docker_user }}
                 password: ${{ secrets.docker_pass}}  
-          - name: docker  build for testing
+          - name: docker build for testing
             uses: docker/build-push-action@v4
             with:
               context: .
+              push: false
               #tags: ${{ vars.docker_user }}/solar-system:${{ github.sha }}
               tags: tzahitamir/solar-system:${{ github.sha }}
           - name: docker testing
@@ -88,5 +89,11 @@ jobs:
               echo "Testing docker with wget"
 
               wget -q -O - 127.0.0.1:3000/live | grep live 
+          - name: docker build for testing
+            uses: docker/build-push-action@v4
+            with:
+              context: .
+              push: true
+              tags: tzahitamir/solar-system:${{ github.sha }}    
 
 
