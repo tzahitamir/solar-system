@@ -11,7 +11,14 @@ env:
     MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superDate'
     MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
     MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
-jobs:    
+jobs: 
+
+    ##GitHUB can be configured to different enviorments such as dev , prod etc. each with its own secrets , branches ,protection rules, etc.  
+    #enviorment:
+      #name: dev
+      #url: AA
+
+
     unit-testing:
         runs-on: ubuntu-latest
         #optinally specify a container that is preconfigured with required env, the steps will be executed on that container, instead of github runner
@@ -70,6 +77,10 @@ jobs:
           name: conternatiozation
           needs: [unit-testing]
           runs-on: ubuntu-latest 
+          
+          ## if: contains(github.ref, '/feature') 
+          #this will run the step only for branches that start with /feature
+
           #Add write permission to GITHUB_TOKEN , such that it will be able to push new container to GHCR
           permissions:
             packages: write
@@ -122,5 +133,5 @@ jobs:
                 tzahitamir/solar-system:${{ github.sha }}    
                 ghcr.io/${{ github.repository_owner }}/solar-system:${{ github.sha }} 
 
-#GitHUB can be configured to different enviorments such as dev , prod etc. each with its own secrets , branches , etc.
+
 
