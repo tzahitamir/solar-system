@@ -1,0 +1,13 @@
+
+#use workflow_call to make a workflow resuable 
+name: Resuable deploy workflow 
+on: 
+   workflow_call:
+jobs:
+    reuse-deploy:
+
+    #Put here the code you want to reuse
+
+    #in order to make use of the resuable workflow, you can call it from another workflow:
+    #    
+    # uses: .github/workflows/resuable-workflow.yaml
