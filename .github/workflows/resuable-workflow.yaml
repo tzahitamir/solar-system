@@ -3,6 +3,10 @@
 name: Resuable deploy workflow 
 on: 
    workflow_call:
+      #secrets:   
+         #my-password-name:  // the my-password-name name , can be referenced later on in the workflow 
+
+          #  required: true
 jobs:
     reuse-deploy:
 
@@ -10,4 +14,12 @@ jobs:
 
     #in order to make use of the resuable workflow, you can call it from another workflow:
     #    
-    # uses: .github/workflows/resuable-workflow.yaml
+    # uses: ./.github/workflows/resuable-workflow.yaml
+    # secrets and enviroment variables are not supplied from the resuable workflow to the calling resuable workflow by default
+    # in order to pass the secret to the resuable workflow, you can use "secrets: inheret " , 
+    #or another appoach is to define secrets below the workflow_call: , this is like calling the workflow with parameters
+    # that can be later on used in the workflow 
+    # the caller workflow, which is calling the reuse workflow will have to pass parameters, for example:
+    # uses: ./.github/workflows/resuable-workflow.yaml
+    # secrets:  
+    #   my-password-name: ${{ secrets.my-password-name }}
